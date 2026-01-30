@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 40 20% 98%;
+        --foreground: 0 0% 10%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 10%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 10%;
+
+        --primary: 0 0% 12%;
+        --primary-foreground: 40 20% 98%;
+
+        --secondary: 40 15% 94%;
+        --secondary-foreground: 0 0% 12%;
+
+        --muted: 40 10% 92%;
+        --muted-foreground: 0 0% 40%;
+
+        --accent: 38 90% 50%;
+        --accent-foreground: 0 0% 100%;
+
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+
+        --border: 40 10% 88%;
+        --input: 40 10% 88%;
+        --ring: 38 90% 50%;
+
+        --radius: 0.5rem;
+
+        /* Custom tokens */
+        --gold: 38 90% 50%;
+        --gold-light: 40 85% 65%;
+        --cream: 40 20% 98%;
+        --charcoal: 0 0% 12%;
+        --charcoal-light: 0 0% 25%;
+
+        --font-display: 'Playfair Display', serif;
+        --font-body: 'Inter', sans-serif;
+
+        --shadow-product: 0 4px 20px -2px hsl(0 0% 0% / 0.08);
+        --shadow-product-hover: 0 12px 40px -4px hsl(0 0% 0% / 0.15);
+        --shadow-card: 0 2px 12px -2px hsl(0 0% 0% / 0.06);
+
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+
+    .dark {
+        --background: 0 0% 8%;
+        --foreground: 40 20% 95%;
+
+        --card: 0 0% 12%;
+        --card-foreground: 40 20% 95%;
+
+        --popover: 0 0% 12%;
+        --popover-foreground: 40 20% 95%;
+
+        --primary: 40 20% 95%;
+        --primary-foreground: 0 0% 8%;
+
+        --secondary: 0 0% 18%;
+        --secondary-foreground: 40 20% 95%;
+
+        --muted: 0 0% 18%;
+        --muted-foreground: 40 10% 60%;
+
+        --accent: 38 90% 55%;
+        --accent-foreground: 0 0% 8%;
+
+        --destructive: 0 62% 45%;
+        --destructive-foreground: 40 20% 95%;
+
+        --border: 0 0% 20%;
+        --input: 0 0% 20%;
+        --ring: 38 90% 55%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground antialiased;
+        font-family: var(--font-body);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+    }
+}
+
+@layer components {
+    .product-card {
+        @apply relative overflow-hidden transition-all duration-500 ease-out;
+        box-shadow: var(--shadow-product);
+    }
+
+    .product-card:hover {
+        box-shadow: var(--shadow-product-hover);
+        transform: translateY(-4px);
+    }
+
+    .product-image-zoom {
+        @apply transition-transform duration-700 ease-out;
+    }
+
+    .product-card:hover .product-image-zoom {
+        transform: scale(1.08);
+    }
+
+    .btn-gold {
+        @apply bg-accent text-accent-foreground font-medium tracking-wide;
+        @apply transition-all duration-300 ease-out;
+        @apply hover:brightness-110 hover:shadow-lg;
+    }
+
+    .btn-outline-dark {
+        @apply border-2 border-primary bg-transparent text-primary;
+        @apply transition-all duration-300 ease-out;
+        @apply hover:bg-primary hover:text-primary-foreground;
+    }
+
+    .text-gradient-gold {
+        background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-link {
+        @apply relative text-foreground/80 transition-colors duration-300;
+    }
+
+    .nav-link::after {
+        content: '';
+        @apply absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+    }
+
+    .nav-link:hover {
+        @apply text-foreground;
+    }
+
+    .nav-link:hover::after {
+        @apply w-full;
+    }
+
+    .hero-gradient {
+        background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(40 15% 94%) 100%);
+    }
+
+    .category-card {
+        @apply relative overflow-hidden transition-all duration-500;
+    }
+
+    .category-card::before {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10;
+        @apply transition-opacity duration-500;
+    }
+
+    .category-card:hover::before {
+        @apply opacity-80;
+    }
+}
+
+@layer utilities {
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

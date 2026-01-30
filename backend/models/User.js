@@ -7,6 +7,20 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    addresses: [
+      {
+        firstName: String,
+        lastName: String,
+        address: String,
+        apartment: String,
+        city: String,
+        state: String,
+        zipCode: String,
+        country: String,
+        phone: String,
+        isDefault: { type: Boolean, default: false },
+      },
+    ],
   },
   { timestamps: true }
 );
