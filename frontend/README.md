@@ -1,73 +1,66 @@
-# Welcome to your Lovable project
+# LUXE - Modern E-commerce Platform (Frontend)
 
-## Project info
+LUXE is a premium, full-featured e-commerce frontend built with React, TypeScript, and Vite. It offers a seamless shopping experience with real-time backend integration, secure authentication, and a sleek, modern design.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![LUXE Frontend Interface](file:///C:/Users/acer/.gemini/antigravity/brain/bac57b12-4322-460a-a0fa-b886fb0878fc/frontend_verification_1769773007797.webp)
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+### 🛍️ Shopping Experience
+- **Dynamic Product Grid**: Real-time product fetching with pagination.
+- **Advanced Search & Filtering**: URL-based search and category filtering for shareable results.
+- **Product Details**: Comprehensive views including image galleries, size selection, and description.
+- **Customer Reviews**: Real reviews fetched from the backend with the ability for verified users to submit new ones.
 
-**Use Lovable**
+### 🛒 Cart & Checkout
+- **Persistent Shopping Bag**: Global state management for the cart using React Context.
+- **Streamlined Checkout**: Integrated multi-step checkout flow.
+- **Real Order Creation**: Connected to the backend API for order processing and inventory management.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 👤 User Account
+- **Secure Authentication**: JWT-based login and signup systems.
+- **Profile Management**: Update personal info and manage saved shipping addresses.
+- **Order History**: View all previous orders with status updates (Paid, Shipped, Delivered).
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+- **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **Data Fetching**: [TanStack Query (React Query)](https://tanstack.com/query/latest)
+- **State Management**: React Context API
+- **Icons**: [Lucide React](https://lucide.dev/)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📦 Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Navigate to the frontend directory**:
+   ```sh
+   cd frontend
+   ```
 
-Follow these steps:
+2. **Install dependencies**:
+   ```sh
+   npm install
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Configure Environment**:
+   Create a `.env` file (if not present) and set your backend API URL:
+   ```env
+   VITE_API_BASE_URL=http://localhost:5000/api
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Start the development server**:
+   ```sh
+   npm run dev
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🔌 API Integration
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+The frontend communicates with a MERN backend. Key services are located in `src/api/`:
+- `authService.ts`: Handles login, signup, and profile updates.
+- `productService.ts`: Manages products list, search, and reviews.
+- `orderService.ts`: Handles order creation and history fetching.
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+Built with ❤️ for a premium shopping experience.
