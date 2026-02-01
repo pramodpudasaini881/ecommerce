@@ -15,8 +15,6 @@ pnpm-debug.log*
 ############################
 # Environment files
 ############################
-.env
-.env.*
 frontend/.env
 backend/.env
 
@@ -44,3 +42,4 @@ frontend/dist/
 ############################
 coverage/
 .cache/
+config.bat

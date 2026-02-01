@@ -29,7 +29,7 @@ const AdminLayout = () => {
             <aside className="w-64 bg-background border-r flex flex-col hidden lg:flex">
                 <div className="p-6 border-b">
                     <Link to="/" className="flex items-center gap-2">
-                        Ecommerce App
+                        Kinni Ho
                         <span className="text-[10px] bg-accent px-1.5 py-0.5 rounded text-accent-foreground font-bold uppercase">
                             Admin
                         </span>
@@ -75,7 +75,7 @@ const AdminLayout = () => {
             {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden">
                 <header className="h-16 border-b bg-background flex items-center justify-between px-8 lg:hidden">
-                    <span className="font-display text-2xl font-bold text-primary">Ecommerce App</span>
+                    <span className="font-display text-2xl font-bold text-primary">Kinni Ho</span>
                     {/* Mobile menu toggle would go here */}
                 </header>
 
