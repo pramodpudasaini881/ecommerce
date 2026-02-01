@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, ShoppingBag, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn, resolveImageUrl } from "@/lib/utils";
 
 interface Product {
     _id: string;
@@ -31,7 +32,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
             <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
                 <Link to={`/product/${productId}`}>
                     <img
-                        src={product.image}
+                        src={resolveImageUrl(product.image)}
                         alt={product.name}
                         className="w-full h-full object-cover product-image-zoom"
                     />

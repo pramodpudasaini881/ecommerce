@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Brand */}
                     <div className="space-y-4">
-                        <span className="font-display text-3xl font-bold">LUXE</span>
+                        <span className="font-display text-3xl font-bold">Ecommerce App</span>
                         <p className="text-primary-foreground/70 text-sm leading-relaxed">
                             Curating timeless pieces for the modern individual.
                             Quality craftsmanship since 2010.
@@ -42,7 +42,7 @@ const Footer = () => {
 
                     {/* Shop */}
                     <div>
-                        <h4 className="font-display text-lg font-semibold mb-4">Shop</h4>
+                        <h3 className="font-display text-lg font-semibold mb-6">Ecommerce App</h3>
                         <ul className="space-y-3">
                             {["New Arrivals", "Women", "Men", "Accessories", "Sale"].map(
                                 (item) => (
@@ -109,14 +109,14 @@ const Footer = () => {
                 {/* Bottom */}
                 <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-primary-foreground/50 text-sm">
-                        © 2026 LUXE. All rights reserved.
+                        © 2026 Ecommerce App. All rights reserved.
                     </p>
                     <div className="flex gap-6">
                         {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
                             (item) => (
                                 <a
                                     key={item}
-                                    href="#"
+                                    href={`/page/${item.toLowerCase().replace(/ /g, "-")}`}
                                     className="text-primary-foreground/50 hover:text-primary-foreground text-sm transition-colors"
                                 >
                                     {item}

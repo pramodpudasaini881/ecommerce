@@ -283,9 +283,9 @@ const ProductDetail = () => {
             <CartSidebar
                 isOpen={isCartOpen}
                 onClose={() => setIsCartOpen(false)}
-                items={cartItems as any}
-                onUpdateQuantity={handleUpdateQuantity as any}
-                onRemoveItem={handleRemoveItem as any}
+                items={cartItems}
+                onUpdateQuantity={handleUpdateQuantity}
+                onRemoveItem={handleRemoveItem}
             />
         </div>
     );

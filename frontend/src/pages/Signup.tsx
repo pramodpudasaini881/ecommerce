@@ -61,7 +61,7 @@ const Signup = () => {
             <Navbar />
             <main className="container mx-auto px-4 py-16">
                 <div className="max-w-md mx-auto">
-                    <h1 className="text-3xl font-display font-bold text-center mb-8">Create Account</h1>
+                    <h1 className="text-3xl font-display font-bold text-center mb-8">Ecommerce App</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>

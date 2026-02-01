@@ -1,37 +1,23 @@
-import { useNavigate } from "react-router-dom";
-import { Plus, Minus, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 
-interface CartItem {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    quantity: number;
-    category: string;
-}
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ShoppingBag, Trash2, Minus, Plus } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useNavigate } from "react-router-dom";
+import { resolveImageUrl } from "@/lib/utils";
 
 interface CartSidebarProps {
     isOpen: boolean;
     onClose: () => void;
-    items: CartItem[];
-    onUpdateQuantity: (id: number, quantity: number) => void;
-    onRemoveItem: (id: number) => void;
+    items: any[];
+    onUpdateQuantity: (id: string, quantity: number) => void;
+    onRemoveItem: (id: string) => void;
 }
 
-const CartSidebar = ({
-    isOpen,
-    onClose,
-    items,
-    onUpdateQuantity,
-    onRemoveItem,
-}: CartSidebarProps) => {
+const CartSidebar = ({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem }: CartSidebarProps) => {
+    const { subtotal, shipping, total } = useCart();
     const navigate = useNavigate();
-    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const shipping = subtotal > 200 ? 0 : 15;
-    const total = subtotal + shipping;
 
     const handleCheckout = () => {
         onClose();
@@ -40,60 +26,38 @@ const CartSidebar = ({
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-            <SheetContent className="w-full sm:max-w-lg flex flex-col bg-card">
-                <SheetHeader className="border-b border-border pb-4">
-                    <SheetTitle className="font-display text-2xl">
-                        Shopping Bag ({items.length})
-                    </SheetTitle>
+            <SheetContent className="flex flex-col w-full sm:max-w-lg">
+                <SheetHeader className="flex-row items-center justify-between space-y-0 pb-4 border-b border-border">
+                    <SheetTitle>Shopping Cart ({items.length})</SheetTitle>
                 </SheetHeader>
 
                 {items.length === 0 ? (
-                    <div className="flex-1 flex flex-col items-center justify-center text-center">
-                        <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center mb-4">
-                            <svg
-                                className="w-10 h-10 text-muted-foreground"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={1.5}
-                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                                />
-                            </svg>
-                        </div>
-                        <h3 className="font-display text-xl font-semibold mb-2">
-                            Your bag is empty
-                        </h3>
-                        <p className="text-muted-foreground mb-6">
-                            Add items to get started
-                        </p>
-                        <Button className="btn-gold" onClick={onClose}>
+                    <div className="flex-1 flex flex-col items-center justify-center space-y-4">
+                        <ShoppingBag className="h-16 w-16 text-muted-foreground" />
+                        <p className="text-xl font-medium text-muted-foreground">Your cart is empty</p>
+                        <Button variant="outline" onClick={onClose}>
                             Continue Shopping
                         </Button>
                     </div>
                 ) : (
                     <>
-                        {/* Cart Items */}
-                        <div className="flex-1 overflow-y-auto py-4 space-y-4">
+                        <div className="flex-1 overflow-y-auto py-4 -mx-6 px-6 space-y-6">
                             {items.map((item) => (
                                 <div key={item.id} className="flex gap-4">
                                     <div className="w-24 h-28 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
                                         <img
-                                            src={item.image}
+                                            src={resolveImageUrl(item.image)}
                                             alt={item.name}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <div className="flex-1 min-w-0">
+                                    <div className="flex-1 min-w-0 flex flex-col justify-between">
                                         <div className="flex justify-between items-start">
                                             <div>
                                                 <p className="text-xs text-muted-foreground uppercase tracking-widest">
                                                     {item.category}
                                                 </p>
-                                                <h4 className="font-medium text-foreground mt-1 truncate">
+                                                <h4 className="font-medium text-foreground mt-1 truncate max-w-[12rem]">
                                                     {item.name}
                                                 </h4>
                                             </div>
@@ -106,7 +70,8 @@ const CartSidebar = ({
                                                 <Trash2 className="h-4 w-4" />
                                             </Button>
                                         </div>
-                                        <div className="flex items-center justify-between mt-3">
+
+                                        <div className="flex items-center justify-between">
                                             <div className="flex items-center border border-border rounded-lg">
                                                 <Button
                                                     variant="ghost"
@@ -139,7 +104,6 @@ const CartSidebar = ({
                             ))}
                         </div>
 
-                        {/* Cart Summary */}
                         <div className="border-t border-border pt-4 space-y-4">
                             <div className="space-y-2">
                                 <div className="flex justify-between text-sm">

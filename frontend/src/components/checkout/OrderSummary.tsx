@@ -1,5 +1,6 @@
 import { useCart } from "@/contexts/CartContext";
 import { Separator } from "@/components/ui/separator";
+import { resolveImageUrl } from "@/lib/utils";
 
 const OrderSummary = () => {
     const { cartItems, subtotal, shipping, total } = useCart();
@@ -13,7 +14,7 @@ const OrderSummary = () => {
                     <div key={item.id} className="flex gap-3">
                         <div className="relative w-16 h-20 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
                             <img
-                                src={item.image}
+                                src={resolveImageUrl(item.image)}
                                 alt={item.name}
                                 className="w-full h-full object-cover"
                             />

@@ -7,6 +7,7 @@ import {
     deleteUser,
     getUserById,
     updateUser,
+    updateUserProfile,
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 
@@ -75,7 +76,37 @@ router.post("/login", loginUser);
  *       200: { description: User profile returned }
  *       401: { description: Not authorized }
  */
-router.get("/profile", protect, getUserProfile);
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: Get logged-in user profile
+ *     tags: [Users]
+ *     security: [{ bearerAuth: [] }]
+ *     responses:
+ *       200: { description: User profile returned }
+ *       401: { description: Not authorized }
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Users]
+ *     security: [{ bearerAuth: [] }]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name: { type: string }
+ *               email: { type: string }
+ *               password: { type: string }
+ *               addresses: { type: array }
+ *     responses:
+ *       200: { description: User profile updated }
+ * */
+router
+    .route("/profile")
+    .get(protect, getUserProfile)
+    .put(protect, updateUserProfile);
 
 /**
  * @swagger

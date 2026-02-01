@@ -2,26 +2,46 @@ import Product from "../models/Product.js";
 
 // Get all products
 export const getProducts = async (req, res) => {
-  const pageSize = 10;
-  const page = Number(req.query.pageNumber) || 1;
+  try {
+    const pageSize = 12;
+    const page = Number(req.query.pageNumber) || 1;
 
-  const keyword = req.query.keyword
-    ? {
-      name: {
-        $regex: req.query.keyword,
-        $options: "i",
-      },
+    const keyword = req.query.keyword
+      ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+      : {};
+
+    const category = req.query.category ? { category: req.query.category } : {};
+
+    // Sale filter
+    const saleFilter = req.query.sale === 'true' ? { salePrice: { $gt: 0 } } : {};
+
+    // Sort
+    let sortQuery = {};
+    if (req.query.sort === 'newest') {
+      sortQuery = { createdAt: -1 };
+    } else if (req.query.sort === 'price_asc') {
+      sortQuery = { price: 1 };
+    } else if (req.query.sort === 'price_desc') {
+      sortQuery = { price: -1 };
     }
-    : {};
 
-  const category = req.query.category ? { category: req.query.category } : {};
+    const count = await Product.countDocuments({ ...keyword, ...category, ...saleFilter });
+    const products = await Product.find({ ...keyword, ...category, ...saleFilter })
+      .sort(sortQuery)
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .populate("category");
 
-  const count = await Product.countDocuments({ ...keyword, ...category });
-  const products = await Product.find({ ...keyword, ...category })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1));
-
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
 // Get single product by ID

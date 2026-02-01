@@ -4,14 +4,12 @@ import { ShoppingBag, Search, Menu, X, User, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAllCategories } from "@/api/categoryService";
 import CartSidebar from "./CartSidebar";
 
 const navLinks = [
-    { name: "New Arrivals", href: "#new" },
-    { name: "Women", href: "#women" },
-    { name: "Men", href: "#men" },
-    { name: "Accessories", href: "#accessories" },
-    { name: "Sale", href: "#sale" },
+
 ];
 
 interface NavbarProps {
@@ -23,7 +21,13 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [cartOpen, setCartOpen] = useState(false);
     const { cartItems, cartItemCount: contextCartCount, updateQuantity, removeItem } = useCart();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
+
+    // Fetch categories dynamically
+    const { data: categories } = useQuery({
+        queryKey: ["categories"],
+        queryFn: getAllCategories,
+    });
 
     const cartItemCount = propCartCount ?? contextCartCount;
     const handleCartClick = onCartClick ?? (() => setCartOpen(true));
@@ -46,21 +50,32 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
                         {/* Logo */}
                         <Link to="/" className="flex items-center">
                             <span className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-primary">
-                                LUXE
+                                Ecommerce App
                             </span>
                         </Link>
 
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center gap-8">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
+                            <Link to="/?sort=newest" className="nav-link text-sm font-medium uppercase tracking-widest">New Arrivals</Link>
+                            {(categories || []).map((cat: any) => (
+                                <Link
+                                    key={cat._id}
+                                    to={`/?category=${cat._id}`}
                                     className="nav-link text-sm font-medium uppercase tracking-widest"
                                 >
-                                    {link.name}
-                                </a>
+                                    {cat.name}
+                                </Link>
                             ))}
+                            <Link to="/sale" className="nav-link text-sm font-medium uppercase tracking-widest">Sale</Link>
+
+                            {user?.isAdmin && (
+                                <Link
+                                    to="/admin/dashboard"
+                                    className="text-sm font-semibold uppercase tracking-widest text-accent hover:text-accent/80 transition-colors"
+                                >
+                                    Admin Dashboard
+                                </Link>
+                            )}
                         </div>
 
                         {/* Right Icons */}
@@ -112,15 +127,25 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
                     {mobileMenuOpen && (
                         <div className="lg:hidden border-t border-border py-4 animate-fade-in">
                             <div className="flex flex-col gap-4">
-                                {navLinks.map((link) => (
+                                {["New Arrivals"].map((link) => (
                                     <a
-                                        key={link.name}
-                                        href={link.href}
+                                        key={link}
+                                        href={`#${link.toLowerCase().replace(" ", "")}`}
                                         className="text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        {link.name}
+                                        {link}
                                     </a>
+                                ))}
+                                {(categories || []).map((cat: any) => (
+                                    <Link
+                                        key={cat._id}
+                                        to={`/?category=${cat._id}`}
+                                        className="text-sm font-medium uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {cat.name}
+                                    </Link>
                                 ))}
                                 <Link
                                     to={isAuthenticated ? "/profile" : "/login"}
@@ -129,6 +154,15 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
                                 >
                                     {isAuthenticated ? "My Account" : "Sign In"}
                                 </Link>
+                                {user?.isAdmin && (
+                                    <Link
+                                        to="/admin/dashboard"
+                                        className="text-sm font-semibold uppercase tracking-widest text-accent"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        Admin Dashboard
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     )}
@@ -137,9 +171,9 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
             <CartSidebar
                 isOpen={cartOpen}
                 onClose={() => setCartOpen(false)}
-                items={cartItems as any}
-                onUpdateQuantity={updateQuantity as any}
-                onRemoveItem={removeItem as any}
+                items={cartItems}
+                onUpdateQuantity={updateQuantity}
+                onRemoveItem={removeItem}
             />
         </>
     );

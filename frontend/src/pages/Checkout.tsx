@@ -17,7 +17,7 @@ type CheckoutStep = "shipping" | "payment";
 
 const Checkout = () => {
     const navigate = useNavigate();
-    const { cartItems, cartItemCount, clearCart, total } = useCart();
+    const { cartItems, cartItemCount, clearCart, total, subtotal } = useCart();
     const { user, isAuthenticated, addAddress } = useAuth();
     const [currentStep, setCurrentStep] = useState<CheckoutStep>("shipping");
     const [shippingData, setShippingData] = useState<ShippingFormData | null>(null);
@@ -104,13 +104,32 @@ const Checkout = () => {
 
         try {
             // Prepare order items for backend
-            const orderItems = cartItems.map((item) => ({
-                name: item.name,
-                qty: item.quantity,
-                image: item.image,
-                price: item.price,
-                product: item.id,
-            }));
+            const orderItems = cartItems.map((item) => {
+                const productId = item.id || (item as any)._id;
+                if (!productId) {
+                    console.error("Missing product ID for item:", item);
+                    throw new Error(`Product ID is missing for ${item.name}`);
+                }
+                return {
+                    name: item.name,
+                    qty: item.quantity,
+                    image: item.image,
+                    price: item.price,
+                    product: productId,
+                };
+            });
+
+            console.log("Submitting Order Payload:", {
+                orderItems,
+                shippingAddress: {
+                    address: shippingData!.address,
+                    city: shippingData!.city,
+                    postalCode: shippingData!.zipCode,
+                    country: shippingData!.country,
+                },
+                itemsPrice: subtotal,
+                totalPrice: total
+            });
 
             // Create order on backend
             const createdOrder = await createOrder({
@@ -118,11 +137,11 @@ const Checkout = () => {
                 shippingAddress: {
                     address: shippingData!.address,
                     city: shippingData!.city,
-                    zipCode: shippingData!.zipCode,
+                    postalCode: shippingData!.zipCode, // Map zipCode to postalCode
                     country: shippingData!.country,
-                } as any, // backend expects postalCode but use zipCode for now or map it
+                } as any,
                 paymentMethod: "Credit Card",
-                itemsPrice: total - 15, // Simple calc for now
+                itemsPrice: subtotal,
                 taxPrice: 0,
                 shippingPrice: 15,
                 totalPrice: total,

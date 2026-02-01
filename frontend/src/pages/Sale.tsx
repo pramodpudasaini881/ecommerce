@@ -1,34 +1,25 @@
-import { useState } from "react";
-import { toast } from "sonner";
+
 import { useQuery } from "@tanstack/react-query";
 import { useCart } from "@/contexts/CartContext";
 import * as productService from "@/api/productService";
 import Navbar from "@/components/Navbar";
 import PromoBar from "@/components/PromoBar";
-import HeroSection from "@/components/HeroSection";
 import ProductGrid from "@/components/ProductGrid";
-import CategorySection from "@/components/CategorySection";
 import Footer from "@/components/Footer";
 import CartSidebar from "@/components/CartSidebar";
+import { toast } from "sonner";
+import { useState } from "react";
 
-import { useSearchParams } from "react-router-dom";
-
-const Index = () => {
+const Sale = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
-    const { cartItems, addToCart, updateQuantity, removeItem, cartItemCount } = useCart();
-    const [searchParams] = useSearchParams();
-
-    const search = searchParams.get("search") || "";
-    const categoryQuery = searchParams.get("category") || "";
-    const sortQuery = searchParams.get("sort") || "";
+    const { addToCart, cartItems, updateQuantity, removeItem, cartItemCount } = useCart();
 
     const { data: products, isLoading } = useQuery({
-        queryKey: ["products", search, categoryQuery, sortQuery],
-        queryFn: () => productService.getProducts(search, categoryQuery, false, sortQuery),
+        queryKey: ["products", "sale"],
+        queryFn: () => productService.getProducts("", "", true),
     });
 
     const handleAddToCart = (product: any) => {
-        // Map backend product to cart product structure
         const cartProduct = {
             id: product._id,
             name: product.name,
@@ -41,23 +32,25 @@ const Index = () => {
         setIsCartOpen(true);
     };
 
-    const handleRemoveItem = (id: string) => {
-        removeItem(id);
-        toast.success("Item removed from bag");
-    };
-
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background flex flex-col">
             <PromoBar />
             <Navbar cartItemCount={cartItemCount} onCartClick={() => setIsCartOpen(true)} />
-            <main>
-                <HeroSection />
+            <main className="flex-1">
+                <div className="bg-secondary/30 py-16 mb-8">
+                    <div className="container mx-auto px-4 text-center">
+                        <h1 className="font-display text-4xl lg:text-5xl font-bold mb-4">Sale</h1>
+                        <p className="text-muted-foreground max-w-2xl mx-auto">
+                            Exclusive deals on our premium collection. Limited time offers.
+                        </p>
+                    </div>
+                </div>
+
                 <ProductGrid
-                    onAddToCart={handleAddToCart}
                     products={products?.products || []}
                     isLoading={isLoading}
+                    onAddToCart={handleAddToCart}
                 />
-                <CategorySection />
             </main>
             <Footer />
             <CartSidebar
@@ -65,10 +58,13 @@ const Index = () => {
                 onClose={() => setIsCartOpen(false)}
                 items={cartItems}
                 onUpdateQuantity={updateQuantity}
-                onRemoveItem={handleRemoveItem}
+                onRemoveItem={(id) => {
+                    removeItem(id);
+                    toast.success("Item removed");
+                }}
             />
         </div>
     );
 };
 
-export default Index;
+export default Sale;

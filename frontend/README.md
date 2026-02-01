@@ -1,6 +1,6 @@
-# LUXE - Modern E-commerce Platform (Frontend)
+# Ecommerce App
 
-LUXE is a premium, full-featured e-commerce frontend built with React, TypeScript, and Vite. It offers a seamless shopping experience with real-time backend integration, secure authentication, and a sleek, modern design.
+Ecommerce App is a premium, full-featured e-commerce frontend built with React, TypeScript, and Vite. It offers a seamless shopping experience with real-time backend integration, secure authentication, and a sleek, modern design.
 
 ![LUXE Frontend Interface](file:///C:/Users/acer/.gemini/antigravity/brain/bac57b12-4322-460a-a0fa-b886fb0878fc/frontend_verification_1769773007797.webp)
 

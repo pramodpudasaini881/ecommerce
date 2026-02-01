@@ -51,10 +51,9 @@ const ProductGrid = ({ onAddToCart, products, isLoading }: ProductGridProps) => 
                             key={product._id}
                             product={{
                                 ...product,
-                                id: product._id as any, // Cast for compatibility with ProductCard if needed
                                 category: product.category?.name || "Product"
                             }}
-                            onAddToCart={(p: any) => onAddToCart(product)}
+                            onAddToCart={() => onAddToCart(product)}
                         />
                     ))}
                 </div>

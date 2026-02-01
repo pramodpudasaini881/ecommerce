@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, resolveImageUrl } from "@/lib/utils";
 
 interface ImageGalleryProps {
     images: string[];
@@ -25,7 +25,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             {/* Main Image */}
             <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-secondary group">
                 <img
-                    src={images[selectedIndex]}
+                    src={resolveImageUrl(images[selectedIndex])}
                     alt={`${productName} - Image ${selectedIndex + 1}`}
                     className={cn(
                         "w-full h-full object-cover transition-transform duration-500",
@@ -86,7 +86,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
                         )}
                     >
                         <img
-                            src={image}
+                            src={resolveImageUrl(image)}
                             alt={`${productName} thumbnail ${index + 1}`}
                             className="w-full h-full object-cover"
                         />

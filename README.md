@@ -1,10 +1,8 @@
-# LUXE - Modern MERN E-commerce Platform
+# Ecommerce App
 
-LUXE is a premium full-stack e-commerce solution built with the MERN stack (MongoDB, Express, React, Node.js). It provides a high-end shopping experience for customers and a robust management system for products and orders.
+Ecommerce App is a premium full-stack e-commerce solution built with the MERN stack (MongoDB, Express, React, Node.js). It provides a high-end shopping experience for customers and a robust management system for products and orders.
 
-![LUXE Platform](file:///C:/Users/acer/.gemini/antigravity/brain/bac57b12-4322-460a-a0fa-b886fb0878fc/frontend_verification_1769773007797.webp)
-
-## 📁 Project Structure
+## Ecommerce App Structure
 
 - **/backend**: Express & Node.js server with MongoDB (Mongoose) integration.
 - **/frontend**: React + Vite application with TypeScript and Tailwind CSS.
