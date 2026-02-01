@@ -50,7 +50,7 @@ const Navbar = ({ cartItemCount: propCartCount, onCartClick }: NavbarProps = {})
                         {/* Logo */}
                         <Link to="/" className="flex items-center">
                             <span className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-primary">
-                                Ecommerce App
+                                Kinni Ho
                             </span>
                         </Link>
 

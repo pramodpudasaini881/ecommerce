@@ -42,7 +42,7 @@ const Footer = () => {
 
                     {/* Shop */}
                     <div>
-                        <h3 className="font-display text-lg font-semibold mb-6">Ecommerce App</h3>
+                        <h3 className="font-display text-lg font-semibold mb-6">Kinni Ho</h3>
                         <ul className="space-y-3">
                             {["New Arrivals", "Women", "Men", "Accessories", "Sale"].map(
                                 (item) => (
@@ -108,8 +108,8 @@ const Footer = () => {
 
                 {/* Bottom */}
                 <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-primary-foreground/50 text-sm">
-                        © 2026 Ecommerce App. All rights reserved.
+                    <p className="text-xs text-primary-foreground/40">
+                        &copy; {new Date().getFullYear()} Kinni Ho. All rights reserved.
                     </p>
                     <div className="flex gap-6">
                         {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(

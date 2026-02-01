@@ -1,8 +1,8 @@
-# Ecommerce App
+# Kinni Ho
 
-Ecommerce App is a premium full-stack e-commerce solution built with the MERN stack (MongoDB, Express, React, Node.js). It provides a high-end shopping experience for customers and a robust management system for products and orders.
+Kinni Ho is a premium full-stack e-commerce solution built with the MERN stack (MongoDB, Express, React, Node.js). It provides a high-end shopping experience for customers and a robust management system for products and orders.
 
-## Ecommerce App Structure
+## Kinni Ho Structure
 
 - **/backend**: Express & Node.js server with MongoDB (Mongoose) integration.
 - **/frontend**: React + Vite application with TypeScript and Tailwind CSS.

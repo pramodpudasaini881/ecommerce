@@ -7,14 +7,14 @@ const contentMap: Record<string, { title: string; content: string }> = {
     "privacy-policy": {
         title: "Privacy Policy",
         content: `
-            <p>At Ecommerce App, we are committed to protecting your privacy...</p>
+            <p>At Kinni Ho, we are committed to protecting your privacy...</p>
             <p>We do not sell your personal data to third parties.</p>
         `
     },
     "terms-of-service": {
         title: "Terms of Service",
         content: `
-            <p>Welcome to Ecommerce App. By using our website, you agree to these terms...</p>
+            <p>Welcome to Kinni Ho. By using our website, you agree to these terms...</p>
         `
     },
     "shipping-returns": {
@@ -27,7 +27,7 @@ const contentMap: Record<string, { title: string; content: string }> = {
     "about-us": {
         title: "About Us",
         content: `
-            <p>Ecommerce App is a premium fashion destination...</p>
+            <p>Kinni Ho is a premium fashion destination...</p>
         `
     },
     "faq": {
